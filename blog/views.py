@@ -67,7 +67,7 @@ def article(request):
             article['author'] = article.pop('author_id')
             
         return JsonResponse(article_list, safe=False)
-    if request.method == 'POST':
+    else: # if request.method == 'POST':
         req_data = json.loads(request.body.decode())
         title = req_data['title']
         content = req_data['content']
@@ -105,7 +105,7 @@ def article_id(request, article_id=0):
         article.save()
         response_dict = {'title': article.title, 'content': article.content, 'id': article.id} 
         return JsonResponse(response_dict, status=200)
-    if request.method == 'DELETE':
+    else: # if request.method == 'DELETE':
         article.delete()
         return HttpResponse(status=200)
 
@@ -134,7 +134,7 @@ def article_id_comment(request, article_id=0):
                 wanted_comment_list.append(comment)
 
         return JsonResponse(wanted_comment_list, safe=False)
-    if request.method == 'POST':
+    else: # if request.method == 'POST':
         req_data = json.loads(request.body.decode())
         content = req_data['content']
         author = request.user
@@ -169,7 +169,7 @@ def comment_id(request, comment_id=0):
         comment.save()
         response_dict = {'content': content, 'id': comment.id}
         return JsonResponse(response_dict, status=200)
-    if request.method == 'DELETE':
+    else: # if request.method == 'DELETE':
         comment.delete()
         return HttpResponse(status=200)
     
